@@ -1,0 +1,27 @@
+{
+  "name": "reactPractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify scripts/main.js -o dist/main.js -t [ babelify --presets [ es2015 react] ]",
+    "watch:js": "watch 'npm run build' scripts/*/",
+    "start": "npm run-script watch:js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babelify": "^7.2.0",
+    "backbone": "^1.2.3",
+    "browserify": "^12.0.1",
+    "exorcist": "^0.4.0",
+    "jquery": "^2.1.4",
+    "underscore": "^1.8.3",
+    "watch": "^0.16.0"
+  },
+  "presets": [
+    "es2015",
+    "react"
+  ]
+}
