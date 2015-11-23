@@ -2,7 +2,7 @@
   "name": "reactPractice",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify scripts/main.js -o dist/main.js -t [ babelify --presets [ es2015 react] ]",
@@ -23,5 +23,11 @@
   "presets": [
     "es2015",
     "react"
-  ]
+  ],
+  "dependencies": {
+    "history": "^1.13.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.0"
+  }
 }
