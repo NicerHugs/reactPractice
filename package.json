@@ -25,6 +25,7 @@
     "react"
   ],
   "dependencies": {
+    "alt": "^0.17.9",
     "history": "^1.13.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

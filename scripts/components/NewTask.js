@@ -1,16 +1,17 @@
 'use strict';
 
 import React from 'react';
+import TaskActions from './../actions/taskActions';
 
 let NewTask = React.createClass({
   handleChange(e) {
-    this.props.updateTask(this.refs.newTaskInput.value);
+    let val = this.refs.newTaskInput.value;
+    TaskActions.updateNewTask(val);
   },
 
   handleKeypress(e) {
     if (e.which === 13) {
-      this.props.saveTask();
-      this.props.updateTask('');
+      TaskActions.saveNewTask();
     }
   },
 

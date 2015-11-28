@@ -2,55 +2,40 @@
 
 import React from 'react';
 
+import TaskStore from './../stores/taskStore';
+
 import NewTask from './NewTask';
 import Links from './Links'
 import TaskList from './TaskList'
 
 let App = React.createClass({
   getInitialState() {
-    return {
-      newTaskValue: '',
-      tasks: [],
-      filteredTasks: []
-    }
+    return TaskStore.getState();
   },
 
-  updateTask(val) {
-    this.setState({newTaskValue: val});
+  componentDidMount() {
+    TaskStore.listen(this.onChange);
   },
 
-  modifyTask(taskId, completed) {
-    var updatedTasks = this.state.tasks.map(function(task) {
-      if (task.id === taskId) {
-        task.completed = completed;
-      }
-      return task;
-    });
-    this.setState({tasks: updatedTasks});
+  componentWillUnmount() {
+    TaskStore.unlisten(this.onChange);
   },
 
-  saveTask() {
-    let newTask = this.state.newTaskValue;
-    let updatedTasks = this.state.tasks;
-    updatedTasks.push({id: Date.now(), body: newTask, completed: false})
-    this.setState({tasks: updatedTasks});
-    this.setState({newTaskValue: ''});
+  onChange(state) {
+    this.setState(state);
   },
 
   render() {
+    let childrenWithProps = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {filter: this.props.location.pathname, tasks: this.state.tasks});
+    });
     return (
       <div>
         <NewTask
-          updateTask={this.updateTask}
-          saveTask={this.saveTask}
           ref="newTaskInput"
-          value={this.state.newTaskValue}
+          value={this.state.newTask}
         />
-        <TaskList
-          tasks={this.state.tasks}
-          filter={this.props.location.pathname}
-          taskUpdate={this.modifyTask}
-        />
+        {childrenWithProps}
         <Links />
       </div>
     )
